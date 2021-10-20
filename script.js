@@ -31,21 +31,21 @@ let shuffleOrder = () => {
 *Acende prócima cor
 */
 let lightColor = (element, number) => {
-    time = time * 500
+    number = number * 500
     setTimeout(() => {
         element.classList.add('selected')
-    }, number - 250) 
+    }, number - 250) ;
     setTimeout(() => {
         element.classList.remove('selected')
-    } )
+    },number - 25)
 }
 /*
 *creca se os botões  clicados  são os mesmos da ordem gerada no jogo
 */
 let checkOrder = () => {
-    for (let i in checkOrder){
+    for (let i in clickedOorder){
         if(clickedOorder[i] != order[i]){
-            lose()
+            gameOver()
             break
         }
     }
@@ -65,9 +65,8 @@ let click = (color) => {
 
     setTimeout(() => {
         createElement(color).classList.remove('selected')
-    })
-
-    checkOrder();
+        checkOrder()
+    },250)
 }
 
 /*
@@ -96,3 +95,32 @@ let nextLevel = () => {
     shuffleOrder()
 }
 
+/*
+*Função para Game Over
+*/
+
+let gameOver = () => {
+    alert(`Pontuação ${score} \n Você perdeu o jogo! \nClique em OK para recomeçar o jogo`)
+    order = [];
+    clickedOorder =[]
+
+    playGame()
+}
+
+/*
+*Iniciar o Jogo
+*/
+
+let playGame = () =>{
+    alert('Bem Vindo ao Gênesis! \nIniciando um Novo Jogo')
+    score = 0
+
+    nextLevel()
+}
+
+green.onclick = () => click(0)
+red.onclick = () => click(1)
+yellow.onclick = () => click(2)
+blue.onclick = () => click(3)
+
+playGame();
